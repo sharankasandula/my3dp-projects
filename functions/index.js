@@ -1,51 +1,50 @@
-const cors = require("cors")
-const puppeteer = require("puppeteer")
-const functions = require("firebase-functions");
+const puppeteer = require('puppeteer');
+const functions = require('firebase-functions');
+const cors = require('cors')({ origin: true});
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+const scrapeImages = async (link) => {
+    const browser = await puppeteer.launch( { headless: true });
+    const page = await browser.newPage();
+    const data = {};
 
+    await page.goto(link);
 
-const scrapeThingiverse = async (link) => {
-const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(link);
-const data = {};
-await page.content()
+    data['author'] = await page.$eval("head > meta[name='author']", element => element.content);
+    data['title'] = await page.$eval("head > meta[property='og:title']", element => element.content);
+    data['description'] = await page.$eval("head > meta[property='og:description']", element => element.content);
+    data['favicon'] = await page.$eval("head > link[rel='icon']", element => element.href);
+    data['images'] = [];
 
-data['author'] = await page.$eval("head > meta[name='author']", element => element.content);
-data['title'] = await page.$eval("head > meta[property='og:title']", element => element.content);
-data['description'] = await page.$eval("head > meta[property='og:description']", element => element.content);
-data['favicon'] = await page.$eval("head > link[rel='icon']", element => element.href);
+    await page.waitForSelector('li.slide', {
+      visible: true,
+    });
+    await page.waitForSelector('img', {
+        visible: true,
+    });
 
-data['images'] = await page.evaluate(() => {
-    const imgUrls = document.querySelectorAll('li')
-    const urls = [];
-    for (let i = 0; i < imgUrls.length; i++) {
-        if (li.className === 'slide') {
-            urls.push(imgUrls[i].children[0].src)
-        } else {
-            urls.push('you messed up')
-        }
-    }
-    console.log(JSON.stringify(urls))
-return urls;
-});
-await browser.close();
-return data;
+    // Execute code in the DOM
+    data['images'] = await page.evaluate( () => {
+
+        const images = [...document.querySelectorAll('li.thumb')];
+
+        return images.map(list => list.children[0].src);
+    }); 
+  
+    await browser.close();
+
+    console.log(data);
+
+    return data;
 }
 
-
-exports.scraper = functions.https.onRequest((request, response) => {
+exports.scraper = functions.https.onRequest( async (request, response) => {
   cors(request, response, async () => {
-    const body = JSON.parse(req.body);
-    const data = 'await scrapeThingiverse(body.text)';
 
-    response.send(data);
+
+      const body = request.body;
+      const result = await scrapeImages(body.text);
+
+      response.send(result)
+
   });
 });
