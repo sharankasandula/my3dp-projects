@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "my3dprints-f727e": {
+      "hosting": {
+        "my3dp-projects": [
+          "my3dprints-f727e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "my3dprints-f727e"
+  }
+}

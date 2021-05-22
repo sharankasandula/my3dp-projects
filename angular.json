@@ -121,8 +121,13 @@
               "devServerTarget": "my3dp-projects:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "my3dp-projects"
 }
