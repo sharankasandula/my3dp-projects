@@ -1,0 +1,16 @@
+<!--<pre>{{projectMetaData | json}}</pre>-->
+
+
+<div class="container">
+  <div class="project-details" *ngIf="projectMetaData">
+
+    <h2>{{projectMetaData.title}}</h2>
+    <p>{{projectMetaData.description}}</p>
+    <ngx-gallery
+      *ngIf="projectMetaData"
+      [options]="galleryOptions"
+      [images]="galleryImages"
+    ></ngx-gallery>
+
+  </div>
+</div>

@@ -5,14 +5,15 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyBSyXeSfLruO0eD9EFtKTSyaqyyNt8iWTc",
-    authDomain: "my3dprints-f727e.firebaseapp.com",
-    projectId: "my3dprints-f727e",
-    storageBucket: "my3dprints-f727e.appspot.com",
-    messagingSenderId: "16001692881",
-    appId: "1:16001692881:web:b663d1a7d69073636201f0"
+    apiKey: 'AIzaSyBSyXeSfLruO0eD9EFtKTSyaqyyNt8iWTc',
+    authDomain: 'my3dprints-f727e.firebaseapp.com',
+    projectId: 'my3dprints-f727e',
+    storageBucket: 'my3dprints-f727e.appspot.com',
+    messagingSenderId: '16001692881',
+    appId: '1:16001692881:web:b663d1a7d69073636201f0'
+  },
+  SCRAPER_ENDPOINT: 'http://localhost:8000/scrape-thingiverse'
   }
-}
 ;
 
 /*

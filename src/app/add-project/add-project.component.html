@@ -1,0 +1,29 @@
+<div class="add-url-container container">
+  <div class="input-group mb-3">
+    <!--    <span class="input-group-text" id="url">https://example.com/users/</span>-->
+    <label for="url"></label>
+    <input
+      type="url"
+      placeholder="Thingiverse link"
+      [(ngModel)]="projectUrl"
+      (submit)="getMetaData()"
+      class="form-control"
+      id="url"
+      aria-describedby="thingiverse-url"/>
+    <button
+      class="btn btn-outline-secondary"
+      type="submit"
+      (click)="getMetaData()"
+      id="add-project">
+      Add Project
+    </button>
+  </div>
+
+  <div class="project-details-container container">
+    <app-project-details
+      [loading]="loading"
+      [dataLoadedEvent]="metaDataLoadedEvent.asObservable()"
+    >
+    </app-project-details>
+  </div>
+</div>
