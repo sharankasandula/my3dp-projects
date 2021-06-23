@@ -1,8 +1,11 @@
-<div *ngIf="auth.user$ | async as user; else login">
-  <pre>{{user | json}}</pre>
+<div *ngIf="auth.user$ | async as user; else login" class="d-flex flex-column justify-content-center">
+<!--  <pre>{{user | json}}</pre>-->
+<!--  <hr>-->
+  <p c>You are already Logged in</p>
+  <button type="button" class="btn-primary btn btn-lg" routerLink="">
+    <span class="google-button__text">Go Home</span>
+  </button>
   <hr>
-
-
   <button type="button" class="google-button" (click)="auth.signOut()">
     <span class="google-button__text">Sign Out</span>
   </button>

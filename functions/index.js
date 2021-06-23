@@ -38,6 +38,7 @@ const scrapeImages = async (link) => {
   .catch(err => console.error("Failed to get description",err));
   data['favicon'] = await page.$eval("head > link[rel='icon']", element => element.href)
   .catch(err => console.error("Failed to get favcion",err));
+  data['link'] = link;
   data['images'] = [];
 
   await page.waitForSelector('li.slide', {

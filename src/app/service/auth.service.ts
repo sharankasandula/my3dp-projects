@@ -21,6 +21,7 @@ export class AuthService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
+          sessionStorage.setItem('firebase', JSON.stringify(user));
           return this.afs.doc('users/' + user.uid).valueChanges();
         } else {
           return of(null);
@@ -37,7 +38,8 @@ export class AuthService {
 
   async signOut() {
     await firebase.auth().signOut();
-    return this.router.navigate(['/']);
+    sessionStorage.clear();
+    return this.router.navigate(['/login']);
   }
 
   private updateUserData({uid, email, displayName, photoURL}) {

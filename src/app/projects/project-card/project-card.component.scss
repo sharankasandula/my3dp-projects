@@ -1,0 +1,42 @@
+.project-card {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+
+  .card-default-header {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    .card-title {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      width: 100%;
+      justify-content: space-between;
+      text-align: justify;
+
+      .header {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+
+        pre {
+          width: 100px;
+          overflow: visible;
+        }
+      }
+    }
+  }
+
+  .card-text {
+    text-align: justify;
+  }
+
+  .img-thumbnail {
+    border: none;
+    padding: 0;
+    max-width: 15rem;
+  }
+}
+

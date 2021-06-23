@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {ProjectsService} from '../service/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -7,13 +8,19 @@ import {Router} from '@angular/router';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
+  allProjects: any;
 
-  constructor(private router: Router) { }
+  constructor(
+    private projectsService: ProjectsService) {
+  }
 
   ngOnInit(): void {
+    this.getAllProjects();
   }
 
-  goToAddProjectsPage() {
-   this.router.navigate(['/add']);
+  getAllProjects() {
+    this.allProjects = this.projectsService.getProjects();
   }
+
+
 }

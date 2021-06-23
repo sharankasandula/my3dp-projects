@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="project-details" *ngIf="projectDetails">
+    <div class="project-description">
+      <h2>{{ projectDetails.title | getTitle }}</h2>
+      <hr>
+      <p>{{ projectDetails.description }}</p>
+      <div class="tags-section mb-3 ">
+        <div>
+          <label for="typeahead-focus">Search for a state:</label>
+          <input
+            id="typeahead-focus"
+            type="text"
+            class="form-control"
+            [(ngModel)]="model"
+            [ngbTypeahead]="search"
+            (focus)="focus$.next($any($event).target.value)"
+            (click)="click$.next($any($event).target.value)"
+            #tagSelector="ngbTypeahead"
+          />
+          <a appProjectTags class="badge btn">
+            <i class="fas fa-plus"></i>
+            Add Tag
+          </a>
+        </div>
+        <div>
+          <a appProjectTags
+             *ngFor="let tag of projectDetails.tags"
+             size="md" class="badge">{{tag}}</a>
+        </div>
+      </div>
+      <hr>
+      <ngx-gallery
+        class="mt-3"
+        *ngIf="projectDetails"
+        [options]="galleryOptions"
+        [images]="galleryImages"
+      ></ngx-gallery>
+    </div>
+
+  </div>
+</div>
+

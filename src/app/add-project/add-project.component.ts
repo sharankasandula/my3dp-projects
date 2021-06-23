@@ -10,16 +10,20 @@ import {Subject} from 'rxjs';
 })
 export class AddProjectComponent implements OnInit {
   projectUrl: string;
-  loading: boolean;
+  loading = false;
   metaDataLoadedEvent: Subject<any> = new Subject<any>();
 
   constructor(private projects: ProjectsService) { }
 
   ngOnInit(): void {
     this.getMetaData();
+    this.loading = false;
   }
 
   getMetaData() {
+    if (!this.projectUrl) {
+      return this.projectUrl;
+    }
     this.loading = true;
     this.projects.getSiteMetaData(this.projectUrl)
     .subscribe((result => {

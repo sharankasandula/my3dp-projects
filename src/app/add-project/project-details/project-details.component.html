@@ -1,16 +1,44 @@
-<!--<pre>{{projectMetaData | json}}</pre>-->
+<div class="">
 
+  <div class="project-details-header mb-3" *ngIf="projectMetaData && !loading">
 
-<div class="container">
+    <button
+      class="btn btn-primary"
+      type="submit"
+      placement="bottom"
+      (click)="addNewProject()"
+      id="add-project">
+      <i class="fas fa-plus"></i>
+      Add to my Collection
+    </button>
+  </div>
+  <!-- Loader -->
+  <div *ngIf="loading">
+    <iframe src="https://lottiefiles.com/iframe/18340-wumpu-thing"></iframe>
+    <ngx-content-loading
+      [speed]="'1500ms'"
+      [width]="1000"
+      [height]="1300">
+      <svg:g ngx-rect width="1000" height="40" y="10" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="900" height="10" y="100" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="900" height="10" y="130" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="900" height="10" y="160" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="900" height="10" y="190" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="800" height="800" y="240" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="190" height="190" y="1050" x="0" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="190" height="190" y="1050" x="200" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="190" height="190" y="1050" x="400" rx="5" ry="5"></svg:g>
+      <svg:g ngx-rect width="190" height="190" y="1050" x="600" rx="5" ry="5"></svg:g>
+    </ngx-content-loading>
+  </div>
+
   <div class="project-details" *ngIf="projectMetaData">
-
-    <h2>{{projectMetaData.title}}</h2>
-    <p>{{projectMetaData.description}}</p>
+    <h2>{{ projectMetaData.title }}</h2>
+    <p class="text-justified">{{ projectMetaData.description }}</p>
     <ngx-gallery
       *ngIf="projectMetaData"
       [options]="galleryOptions"
       [images]="galleryImages"
     ></ngx-gallery>
-
   </div>
 </div>

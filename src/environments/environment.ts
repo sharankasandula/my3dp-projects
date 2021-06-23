@@ -12,7 +12,30 @@ export const environment = {
     messagingSenderId: '16001692881',
     appId: '1:16001692881:web:b663d1a7d69073636201f0'
   },
-  SCRAPER_ENDPOINT: 'http://localhost:8000/scrape-thingiverse'
+  SCRAPER_ENDPOINT: 'http://localhost:8000/scrape-thingiverse',
+  NGX_GALLERY_CONFIG: {
+        thumbnailsColumns: 4,
+        imageAutoPlay: true,
+        imageAutoPlayPauseOnHover: true,
+        previewAutoPlay: true,
+        previewAutoPlayPauseOnHover: true,
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewZoom: true,
+        previewRotate: true,
+        image: false,
+        thumbnailsRemainingCount: true,
+        width: 'auto',
+        height: 'auto',
+        breakpoint: 500,
+        imageArrowsAutoHide: true,
+        thumbnailsArrowsAutoHide: true,
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20,
+        preview: true,
+      },
   }
 ;
 

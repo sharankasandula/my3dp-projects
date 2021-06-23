@@ -1,0 +1,39 @@
+<div class="row g-0 card mb-3 ">
+  <div class="col-sm-12 col-xs-12 project-card">
+    <img class="img-thumbnail  " [src]="project.images[0]" [alt]="project.images[0]">
+    <div class="card-default-header">
+      <div class="card-title">
+        <div class="header">
+          <h5 class="card-title ps-3 pt-3">{{project.title | getTitle}}</h5>
+          <pre class="text-muted pt-3">#{{project.id}}</pre>
+        </div>
+        <div class="actions">
+          <a (click)="deleteProject()">
+            <i class="fas fa-trash pe-3 link-danger"></i>
+          </a>
+          <a [routerLink]="'/project/' + project.id">
+            <i class="fas fa-edit pe-3 link-warning"></i>
+          </a>
+          <!--          <a (click)="deleteProject()" class="btn mb-2 btn-info btn-sm py-0 px-1 me-3">-->
+          <!--            open-->
+          <!--          </a>-->
+        </div>
+      </div>
+      <div class="project-description  px-3">
+        <p class="card-text">
+          {{(project.description.length > strLimit) ?
+          (project.description | slice:0:strLimit) + '&hellip;' : (project.description)}}
+        </p>
+
+        <div class="tags mb-3">
+          <a appProjectTags class="badge badge-primary">Vase</a>
+          <a appProjectTags class="badge badge-primary">Actually Useful</a>
+          <a appProjectTags class="badge badge-primary">Toy</a>
+          <a appProjectTags class="badge badge-primary">Educational</a>
+          <a appProjectTags class="badge badge-primary">Cool</a>
+          <a appProjectTags class="badge badge-primary">Timepass</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

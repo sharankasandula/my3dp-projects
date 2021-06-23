@@ -1,25 +1,37 @@
-<div class="add-url-container container">
-  <div class="input-group mb-3">
-    <!--    <span class="input-group-text" id="url">https://example.com/users/</span>-->
-    <label for="url"></label>
+<div
+  [ngClass]="{'my-2': loading === true}"
+  class="add-url-container container">
+<!--  <iframe src="https://lottiefiles.com/iframe/63871-lottie-printer"></iframe>-->
+
+  <label for="url">
+    <h3>Import your project</h3>
+  </label>
+  <form (ngSubmit)="getMetaData()" class="input-group my-3">
     <input
       type="url"
-      placeholder="Thingiverse link"
+      placeholder="Paste link"
       [(ngModel)]="projectUrl"
       (submit)="getMetaData()"
+      (keyup.enter)="getMetaData()"
+      name="projectUrl"
       class="form-control"
       id="url"
-      aria-describedby="thingiverse-url"/>
+      aria-describedby="url"/>
     <button
       class="btn btn-outline-secondary"
       type="submit"
+       placement="bottom"
+      ngbTooltip="Only supports Thingiverse for now"
       (click)="getMetaData()"
-      id="add-project">
-      Add Project
+      id="search">
+      <i class="fas fa-search"></i>
+      Search
     </button>
-  </div>
+  </form>
 
-  <div class="project-details-container container">
+
+
+  <div class="project-details-container ">
     <app-project-details
       [loading]="loading"
       [dataLoadedEvent]="metaDataLoadedEvent.asObservable()"
