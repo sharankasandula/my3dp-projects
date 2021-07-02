@@ -27,6 +27,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.loading = false;
     this.dataLoadedEvent.subscribe((meta) => {
       this.projectMetaData = meta;
+      this.addNewProject();
       this.loading = false;
       this.galleryImages = this.projectMetaData.images.map((img) => {
         return {small: img, medium: img, big: img};

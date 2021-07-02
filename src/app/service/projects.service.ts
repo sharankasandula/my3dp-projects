@@ -35,10 +35,26 @@ export class ProjectsService {
 
   async addNewProject(projectMetaData: any) {
     const projectId = this.getIdFromLink(projectMetaData.link);
-    const result = await this.usersDocRef.doc(this.userData.uid).collection('projects')
-      .doc(projectId).set(projectMetaData)
-      .catch(e => 'Could not add the project to firebase');
-    console.log(result);
+    
+    let result;
+    const projects = await this.usersDocRef
+      .doc(this.userData.uid)
+      .collection('projects');
+    if (this.projects) {
+      result = await this.projects
+        .doc(projectId)
+        .set(projectMetaData)
+        .catch((e) => 'Could not add the project to firebase');
+    } else {
+      result = await this.usersDocRef
+      .doc(this.userData.uid)
+      .collection("projects")
+      .doc(projectId)
+      .set(projectMetaData)
+      .catch((e) => 'Could not create new collection in firebase' + e);
+      console.log(result)
+      
+    }
     return result;
   }
 

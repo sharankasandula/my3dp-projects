@@ -14,7 +14,6 @@ export class ProjectTagsDirective {
     style.pointer = 'cursor';
     style.margin = '0 10px 7px 0';
     style.borderRadius = '25px';
-    console.log(this.size);
     if (this.size === 'md') {
       style.padding = '30px';
     }
