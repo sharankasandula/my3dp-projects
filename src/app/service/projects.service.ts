@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {removeWhitespaces} from '@angular/compiler/src/ml_parser/html_whitespaces';
+import { AngularFirestore } from '@angular/fire/firestore';
+import firebase  from 'firebase/app'
 
 @Injectable({
   providedIn: 'root',
@@ -86,5 +86,25 @@ export class ProjectsService {
 
   deleteProject(projectId) {
     return this.projects
+  }
+
+  updateNewTag(projectId, tagName) {
+    console.log(
+      this.usersDocRef
+        .doc(this.getUid())
+        .collection(this.PROJECTS_COLLECTION)
+        .doc(projectId).update({
+      tags: firebase.firestore.FieldValue.arrayUnion(tagName)
+    })
+      
+      // .collection('tags')
+      // .valueChanges().subscribe(v=> console.log(v))
+    );
+    
+    return this.usersDocRef
+      .doc(this.getUid())
+      .collection(this.PROJECTS_COLLECTION)
+      .doc(projectId)
+      .collection('tags')
   }
 }

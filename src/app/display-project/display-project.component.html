@@ -3,34 +3,77 @@
 <div class="container">
   <div class="project-details" *ngIf="projectDetails">
     <div class="project-description">
-      <h2>{{ projectDetails.title | getTitle }}</h2>
-      <hr>
-      <p>{{ projectDetails.description }}</p>
-      <div class="tags-section mb-3 ">
+      <h2>{{ projectDetails.title | getTitle | titlecase }}</h2>
+      <hr />
+      <p>
+        {{
+          readMore
+            ? projectDetails.description
+            : (projectDetails.description | slice: 0:300)
+        }}
+        <a href="javascript:;" *ngIf="!readMore && projectDetails.description.length>300" (click)="readMore = true"
+          >more...</a
+        >
+      </p>
+      <!-- <p>{{ projectDetails.description }}</p> -->
+      <div class="tags-section mb-3">
         <div>
-          <label for="typeahead-focus">Search for a state:</label>
-          <input
-            id="typeahead-focus"
-            type="text"
-            class="form-control"
-            [(ngModel)]="model"
-            [ngbTypeahead]="search"
-            (focus)="focus$.next($any($event).target.value)"
-            (click)="click$.next($any($event).target.value)"
-            #tagSelector="ngbTypeahead"
-          />
-          <a appProjectTags class="badge btn">
-            <i class="fas fa-plus"></i>
-            Add Tag
-          </a>
+          <div
+            class="d-inline-block"
+            ngbDropdown
+            placement="top"
+            #tagChooser="ngbDropdown"
+          >
+            <button
+              id="dropdownManual"
+              (focus)="tagChooser.open()"
+              ngbDropdownAnchor
+              appProjectTags
+              class="btn btn-secondary"
+            >
+              <i class="fas fa-plus"></i>
+              Add Tags
+            </button>
+            {{ customTag }}
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <button
+                *ngFor="let defaultTag of defaultTags"
+                (click)="addNewTag(defaultTag)"
+                ngbDropdownItem
+              >
+                {{ defaultTag | titlecase }}
+              </button>
+              <div class="d-flex">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customTag"
+                  placeholder="Custom tag"
+                  [(ngModel)]="customTag"
+                  (keyup.enter)="addNewCustomTag(customTag); tagChooser.close()"
+                />
+                <button
+                  (click)="addNewCustomTag(customTag); tagChooser.close()"
+                  class="btn btn-sm"
+                >
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
-          <a appProjectTags
-             *ngFor="let tag of projectDetails.tags"
-             size="md" class="badge">{{tag}}</a>
+          <a
+            [hidden]="projectDetails.tags<1"
+            appProjectTags
+            *ngFor="let tag of projectDetails.tags"
+            size="md"
+            class="badge"
+            >{{ tag | titlecase }}</a
+          >
         </div>
       </div>
-      <hr>
+      <hr />
       <ngx-gallery
         class="mt-3"
         *ngIf="projectDetails"
@@ -38,7 +81,5 @@
         [images]="galleryImages"
       ></ngx-gallery>
     </div>
-
   </div>
 </div>
-
