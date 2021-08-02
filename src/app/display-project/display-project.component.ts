@@ -62,6 +62,10 @@ export class DisplayProjectComponent implements OnInit {
     this.projects.updateNewTag(this.projectDetails.id, tag);
   }
 
+  deleteTag(tag) {
+    this.projects.deleteTag(this.projectDetails.id, tag);
+  }
+
   addNewCustomTag(customTag) {
     this.addNewTag(customTag);
     this.customTag = '';

@@ -8,7 +8,6 @@ import firebase  from 'firebase/app'
   providedIn: 'root',
 })
 export class ProjectsService {
-
   PROJECTS_COLLECTION = 'projects';
   USERS_COLLECTION = 'users';
   usersDocRef;
@@ -26,7 +25,7 @@ export class ProjectsService {
   getSiteMetaData(projectUrl: string) {
     return this.http.post(
       this.SCRAPER_ENDPOINT,
-      {text: projectUrl},
+      { text: projectUrl },
       {
         observe: 'body',
       }
@@ -35,7 +34,7 @@ export class ProjectsService {
 
   async addNewProject(projectMetaData: any) {
     const projectId = this.getIdFromLink(projectMetaData.link);
-    
+
     let result;
     const projects = await this.usersDocRef
       .doc(this.userData.uid)
@@ -47,13 +46,12 @@ export class ProjectsService {
         .catch((e) => 'Could not add the project to firebase');
     } else {
       result = await this.usersDocRef
-      .doc(this.userData.uid)
-      .collection("projects")
-      .doc(projectId)
-      .set(projectMetaData)
-      .catch((e) => 'Could not create new collection in firebase' + e);
-      console.log(result)
-      
+        .doc(this.userData.uid)
+        .collection('projects')
+        .doc(projectId)
+        .set(projectMetaData)
+        .catch((e) => 'Could not create new collection in firebase' + e);
+      console.log(result);
     }
     return result;
   }
@@ -74,14 +72,18 @@ export class ProjectsService {
   }
 
   getProjects() {
-    return this.usersDocRef.doc(this.getUid()).collection(this.PROJECTS_COLLECTION)
-      .valueChanges({idField: 'id'});
+    return this.usersDocRef
+      .doc(this.getUid())
+      .collection(this.PROJECTS_COLLECTION)
+      .valueChanges({ idField: 'id' });
   }
 
   getProjectDetails(projectId: string) {
-    return this.usersDocRef.doc(this.getUid()).collection(this.PROJECTS_COLLECTION)
+    return this.usersDocRef
+      .doc(this.getUid())
+      .collection(this.PROJECTS_COLLECTION)
       .doc(projectId)
-      .valueChanges({idField: 'id'});
+      .valueChanges({ idField: 'id' });
   }
 
   deleteProject(projectId) {
@@ -92,13 +94,23 @@ export class ProjectsService {
       .delete();
   }
 
-  updateNewTag(projectId, tagName) {    
+  updateNewTag(projectId, tagName) {
     return this.usersDocRef
       .doc(this.getUid())
       .collection(this.PROJECTS_COLLECTION)
       .doc(projectId)
       .update({
         tags: firebase.firestore.FieldValue.arrayUnion(tagName),
+      });
+  }
+
+  deleteTag(projectId, tagName) {
+    return this.usersDocRef
+      .doc(this.getUid())
+      .collection(this.PROJECTS_COLLECTION)
+      .doc(projectId)
+      .update({
+        tags: firebase.firestore.FieldValue.arrayRemove(tagName),
       });
   }
 }

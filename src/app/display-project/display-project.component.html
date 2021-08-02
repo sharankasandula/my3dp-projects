@@ -11,12 +11,29 @@
             ? projectDetails.description
             : (projectDetails.description | slice: 0:300)
         }}
-        <a href="javascript:;" *ngIf="!readMore && projectDetails.description.length>300" (click)="readMore = true"
+        <a
+          href="javascript:;"
+          *ngIf="!readMore && projectDetails.description.length > 300"
+          (click)="readMore = true"
           >more...</a
         >
       </p>
       <!-- <p>{{ projectDetails.description }}</p> -->
-      <div class="tags-section mb-3">
+      <div class="tags-section mb-3 align-items-baseline d-flex">
+        <div>
+          <a
+            [hidden]="projectDetails.tags < 1"
+            appProjectTags
+            *ngFor="let tag of projectDetails.tags"
+            size="md"
+            class="badge"
+          >
+            <span>{{ tag | titlecase }}</span>
+            <a href="javascript:;" class="ms-2" (click)="deleteTag(tag)">
+              <i class="far fa-times-circle text-danger"></i>
+            </a>
+          </a>
+        </div>
         <div>
           <div
             class="d-inline-block"
@@ -28,13 +45,11 @@
               id="dropdownManual"
               (focus)="tagChooser.open()"
               ngbDropdownAnchor
-              appProjectTags
               class="btn btn-secondary"
             >
               <i class="fas fa-plus"></i>
               Add Tags
             </button>
-            {{ customTag }}
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
               <button
                 *ngFor="let defaultTag of defaultTags"
@@ -48,7 +63,7 @@
                   type="text"
                   class="form-control"
                   id="customTag"
-                  placeholder="Custom tag"
+                  placeholder="Custom"
                   [(ngModel)]="customTag"
                   (keyup.enter)="addNewCustomTag(customTag); tagChooser.close()"
                 />
@@ -61,16 +76,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <a
-            [hidden]="projectDetails.tags<1"
-            appProjectTags
-            *ngFor="let tag of projectDetails.tags"
-            size="md"
-            class="badge"
-            >{{ tag | titlecase }}</a
-          >
         </div>
       </div>
       <hr />

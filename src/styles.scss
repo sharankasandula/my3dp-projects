@@ -8,8 +8,11 @@ body {
   .container {
     margin: 30px;
   }
-}
 
+  .badge {
+    border: solid #c7ad86 1px;
+  }
+}
 
 /*! `Boldstrap` Bootstrap 4 theme */
 @import url(https://fonts.googleapis.com/css?family=Comfortaa:200,300,400,700);
@@ -32,5 +35,4 @@ $body-bg: #efefef;
 // Add SASS theme customizations here..
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
-
+@import "~bootstrap/scss/bootstrap";
