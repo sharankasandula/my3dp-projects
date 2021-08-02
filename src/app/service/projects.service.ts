@@ -85,26 +85,20 @@ export class ProjectsService {
   }
 
   deleteProject(projectId) {
-    return this.projects
-  }
-
-  updateNewTag(projectId, tagName) {
-    console.log(
-      this.usersDocRef
-        .doc(this.getUid())
-        .collection(this.PROJECTS_COLLECTION)
-        .doc(projectId).update({
-      tags: firebase.firestore.FieldValue.arrayUnion(tagName)
-    })
-      
-      // .collection('tags')
-      // .valueChanges().subscribe(v=> console.log(v))
-    );
-    
     return this.usersDocRef
       .doc(this.getUid())
       .collection(this.PROJECTS_COLLECTION)
       .doc(projectId)
-      .collection('tags')
+      .delete();
+  }
+
+  updateNewTag(projectId, tagName) {    
+    return this.usersDocRef
+      .doc(this.getUid())
+      .collection(this.PROJECTS_COLLECTION)
+      .doc(projectId)
+      .update({
+        tags: firebase.firestore.FieldValue.arrayUnion(tagName),
+      });
   }
 }

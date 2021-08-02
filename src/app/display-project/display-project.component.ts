@@ -23,30 +23,6 @@ export class DisplayProjectComponent implements OnInit {
   customTag: string = '';
   readMore = false;
 
-  // search: OperatorFunction<string, readonly string[]> = (
-  //   text$: Observable<string>
-  // ) => {
-  //   const debouncedText$ = text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged()
-  //   );
-  //   const clicksWithClosedPopup$ = this.click$.pipe(
-  //     filter(() => !this.tagSelector.isPopupOpen())
-  //   );
-  //   const inputFocus$ = this.focus$;
-
-  //   return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-  //     map((term) =>
-  //       (term === ''
-  //         ? this.defaultTags
-  //         : this.defaultTags.filter(
-  //             (v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1
-  //           )
-  //       ).slice(0, 10)
-  //     )
-  //   );
-  // };
-
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.galleryDivWidth = window.innerWidth.toString();
@@ -89,7 +65,6 @@ export class DisplayProjectComponent implements OnInit {
   addNewCustomTag(customTag) {
     this.addNewTag(customTag);
     this.customTag = '';
-    console.log(this.tagChooser);
   }
 
   private getGalleryDivWidth(w: number): string {

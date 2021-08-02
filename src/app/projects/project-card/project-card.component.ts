@@ -16,13 +16,12 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit(): void {}
 
   navigateToProject() {
-    alert('hey')
     this.router.navigate(['/project/' + this.project.id])
   }
 
   deleteProject() {
-    this.projectData.deleteProject(this.project.id).subscribe((res) => {
-      console.log(res);
-    });
+    if (confirm('Do you want to delete this project') === true) {
+      this.projectData.deleteProject(this.project.id)
+    }
   }
 }
