@@ -4,18 +4,18 @@
   <div class="project-details" *ngIf="projectDetails">
     <div class="project-description">
       <h2>{{ projectDetails.title | getTitle | titlecase }}</h2>
-      <hr />
+      <hr/>
       <p>
         {{
-          readMore
-            ? projectDetails.description
-            : (projectDetails.description | slice: 0:300)
+        readMore
+          ? projectDetails.description
+          : (projectDetails.description | slice: 0:300)
         }}
         <a
           href="javascript:;"
           *ngIf="!readMore && projectDetails.description.length > 300"
           (click)="readMore = true"
-          >more...</a
+        >more...</a
         >
       </p>
       <!-- <p>{{ projectDetails.description }}</p> -->
@@ -45,7 +45,7 @@
               id="dropdownManual"
               (focus)="tagChooser.open()"
               ngbDropdownAnchor
-              class="btn btn-secondary"
+              class="btn  btn-outline-dark btn-sm dropdown-toggle rounded-pill"
             >
               <i class="fas fa-plus"></i>
               Add Tags
@@ -78,19 +78,16 @@
           </div>
         </div>
       </div>
-
-      <div class="file-upload-section d-flex justify-content-between">
-        <div class="files-section">
-
+      <div class="dropzone mb-3">
+        <div class="uploaded" *ngIf="files.length">
+          {{ files }}
         </div>
-        <div class="file-upload-button">
-          <button class="btn btn-secondary">
-            Upload GCode
-            <i class="fas fa-upload"></i>
-          </button>
-        </div>
+        <!-- <app-file-drop
+          (uploadFilesChosenEvent)=""
+        ></app-file-drop> -->
       </div>
-      <hr />
+
+      <hr/>
       <ngx-gallery
         class="mt-3"
         *ngIf="projectDetails"

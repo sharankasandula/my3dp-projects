@@ -34,7 +34,7 @@
 
   <div class="project-details" *ngIf="projectMetaData">
     <h2>{{ projectMetaData.title }}</h2>
-    <p class="text-justified">{{ projectMetaData.description }}</p>
+    <p class="project-details-description">{{ projectMetaData.description }}</p>
     <ngx-gallery
       *ngIf="projectMetaData"
       [options]="galleryOptions"

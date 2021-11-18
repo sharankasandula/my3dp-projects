@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
-import firebase  from 'firebase/app'
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +13,12 @@ export class ProjectsService {
   usersDocRef;
   userData;
   projects;
-  private SCRAPER_ENDPOINT = environment.SCRAPER_ENDPOINT;
+private SCRAPER_ENDPOINT = environment.SCRAPER_ENDPOINT;
 
-  constructor(private http: HttpClient, private firestore: AngularFirestore) {
+  constructor(
+    private http: HttpClient,
+    private firestore: AngularFirestore
+  ) {
     this.usersDocRef = this.firestore.collection(this.USERS_COLLECTION);
     this.usersDocRef.valueChanges().subscribe((userData) => {
       this.userData = userData[0];
@@ -25,7 +28,7 @@ export class ProjectsService {
   getSiteMetaData(projectUrl: string) {
     return this.http.post(
       this.SCRAPER_ENDPOINT,
-      { text: projectUrl },
+      { url: projectUrl },
       {
         observe: 'body',
       }
@@ -112,5 +115,14 @@ export class ProjectsService {
       .update({
         tags: firebase.firestore.FieldValue.arrayRemove(tagName),
       });
+  }
+
+  uploadGcodeFile(file) {
+    // console.log('uploaded');
+    // const filePath = 'name-your-file-path-here';
+    // console.log(this.firestore);
+    // const ref = this.firestore.ref(filePath);
+    // const task = ref.put(file);
+    // return ;
   }
 }

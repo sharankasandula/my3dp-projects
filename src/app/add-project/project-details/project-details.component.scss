@@ -2,3 +2,12 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.project-details {
+
+  .project-details-description {
+    p {
+      text-align: justify;
+    }
+  }
+}

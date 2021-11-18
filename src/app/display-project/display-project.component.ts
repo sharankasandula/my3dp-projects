@@ -1,10 +1,33 @@
-import {Component, ElementRef, HostListener, Input, OnInit, ViewChild} from '@angular/core';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery-9';
-import {ProjectsService} from '../service/projects.service';
-import {merge, Observable, OperatorFunction, Subject, Subscription} from 'rxjs';
-import {ActivatedRoute, Route, Router} from '@angular/router';
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryOptions,
+} from 'ngx-gallery-9';
+import { ProjectsService } from '../service/projects.service';
+import {
+  merge,
+  Observable,
+  OperatorFunction,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-display-project',
@@ -16,12 +39,15 @@ export class DisplayProjectComponent implements OnInit {
   @Input() dataLoadedEvent: Observable<any>;
   @ViewChild('tagChooser') tagChooser: ElementRef;
   projectDetails;
+  gcodeFileName;
   defaultTags = ['Vase', 'Useful', 'Toy', 'Educational'];
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   private galleryDivWidth: string;
-  customTag: string = '';
+  customTag = '';
   readMore = false;
+  @ViewChild('gcodeFile') gcodeFile: ElementRef;
+  files: any = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -66,15 +92,26 @@ export class DisplayProjectComponent implements OnInit {
     this.projects.deleteTag(this.projectDetails.id, tag);
   }
 
+  importGcode(event) {
+    const file: File = event.target.files[0];
+    console.log(file)
+    if (file) {
+      this.gcodeFileName = file.name;
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+      this.projects.uploadGcodeFile(formData);
+    }
+  }
+
   addNewCustomTag(customTag) {
     this.addNewTag(customTag);
     this.customTag = '';
   }
 
   private getGalleryDivWidth(w: number): string {
-    if (w > 500) {
-      w = 500;
-    } else if (w < 500 && w > 400) {
+    if (w > 960) {
+      w = 960;
+    } else if (w < 960 && w > 400) {
       w = w - 50;
     } else if (w < 400) {
       w = w - 15;

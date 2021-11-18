@@ -12,7 +12,7 @@ export const environment = {
     messagingSenderId: '16001692881',
     appId: '1:16001692881:web:b663d1a7d69073636201f0'
   },
-  SCRAPER_ENDPOINT: 'http://localhost:8000/scrape-thingiverse',
+  SCRAPER_ENDPOINT: 'http://localhost:8000/thingiverse',
   NGX_GALLERY_CONFIG: {
         thumbnailsColumns: 4,
         imageAutoPlay: true,

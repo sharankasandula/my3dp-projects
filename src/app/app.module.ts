@@ -20,6 +20,7 @@ import { DisplayProjectComponent } from './display-project/display-project.compo
 import { NavbarComponent } from './navbar/navbar.component';
 import { GetTitlePipe } from './pipes/get-title.pipe';
 import { ProjectTagsDirective } from './directives/project-tags.directive';
+import { FileDropComponent } from './components/file-drop/file-drop.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProjectTagsDirective } from './directives/project-tags.directive';
     NavbarComponent,
     GetTitlePipe,
     ProjectTagsDirective,
+    FileDropComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
